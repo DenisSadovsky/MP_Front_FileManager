@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+@*<div class="header">*@
+<h2 @*class="header"*@>Login Form</h2>
+
+<form method="post">
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="info@example.com" name="Name" required>
+
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="Password" required>
+        
+        <button type="submit">Login</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+</form>
+@*</div>*@
+
+<!-- scripts required  for particle effect -->
+@*<script src='~/js/particles.min.js'></script>
+<script src="~/js/index.js"></script>*@
+<!-- //scripts required for particle effect -->
+
