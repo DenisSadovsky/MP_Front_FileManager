@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Web;
+﻿using System.Data.SqlClient;
 using System.Web.Mvc;
 using FileManager_MP.Models;
-using System.Data.Entity;
+using FileManager_MP.Services;
 
 namespace FileManager_MP.Controllers
 {
     public class AccountController : Controller
     {
-
+        private IFileDirectoryServiceProvider _fileDirectoryServiceProvider;
+        private IAccountServiceProvider _accountServiceProvider;
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         //SqlDataReader dr;
+
+        public AccountController(IAccountServiceProvider accountServiceProvider, IFileDirectoryServiceProvider fileDirectoryServiceProvider)
+        {
+            _accountServiceProvider = accountServiceProvider;
+            _fileDirectoryServiceProvider = fileDirectoryServiceProvider;
+        }
 
         // GET: Account
         [HttpGet]
@@ -70,18 +72,25 @@ namespace FileManager_MP.Controllers
         [HttpPost]
         public ActionResult AdminActions(FileDirectory fileDirectory, string open, string createFile,string createDirectory ,string delete)
         {
+            
             if (open != null)
             {
-                fileDirectory.GetDirectoryFiles();
+                fileDirectory.Message = _fileDirectoryServiceProvider.GetDirectoryFiles(fileDirectory.Path,out var directories, out var files);
+                if (fileDirectory.Message == null)
+                {
+                    fileDirectory.Files = files;
+                    fileDirectory.Directories = directories;
+                }
+
             }else if (createFile != null)
             {
-                fileDirectory.CreateFile();
+                fileDirectory.Message  = _fileDirectoryServiceProvider.CreateFile(fileDirectory.Path);
             }else if (createDirectory != null)
             {
-                fileDirectory.CreateDirectory();
+                fileDirectory.Message = _fileDirectoryServiceProvider.CreateDirectory(fileDirectory.Path);
             }else if (delete != null)
             {
-                fileDirectory.DeleteFile();
+               fileDirectory.Message = _fileDirectoryServiceProvider.DeleteFile(fileDirectory.Path);
             }
 
             return View(fileDirectory);
@@ -90,16 +99,22 @@ namespace FileManager_MP.Controllers
         [HttpPost]
         public ActionResult User(FileDirectory fileDirectory)
         {
-            fileDirectory.GetDirectoryFiles();
+            fileDirectory.Message = _fileDirectoryServiceProvider.GetDirectoryFiles(fileDirectory.Path, out var directories, out var files);
+            if (fileDirectory.Message == null)
+            {
+                fileDirectory.Files = files;
+                fileDirectory.Directories = directories;
+            }
             return View(fileDirectory);
         }
 
         [HttpPost]
         public ActionResult ChangeRole(Account acc)
         {
-            var idRole = acc.ChangeRole();
+            var idRole = _accountServiceProvider.ChangeRole(acc.Role);
             if (idRole == 0)
             {
+                acc.Message = "Wrong Role";
                 return View(acc);
             }
 
@@ -107,7 +122,7 @@ namespace FileManager_MP.Controllers
             con.Open();
             com.Connection = con;
             com.CommandText = "UPDATE Tbl_Accounts set IdRole="+ idRole + " where UserName='" + acc.Name+"'";
-            int a = com.ExecuteNonQuery();
+            var a = com.ExecuteNonQuery();
             acc.Message = a == 0 ? "Something wrong with User Name" : "User Role changed";
 
             return View(acc);
