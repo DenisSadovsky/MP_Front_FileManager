@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using LocalRes = FileManager_MP.App_Resources.LocalResources;
 
 namespace FileManager_MP.Services
 {
@@ -11,7 +12,7 @@ namespace FileManager_MP.Services
             {
                 directories = null;
                 files = null;
-                return "Wrong path or empty directory";
+                return LocalRes.WrongPathOrEmptyDirectory;
             }
             else
             {
@@ -31,12 +32,12 @@ namespace FileManager_MP.Services
                     File.Delete(path);
                 }
                 Directory.Delete(path, true);
-                return "Deleted successfuly";
+                return LocalRes.DeletedSuccessfuly;
 
             }
             catch (Exception e)
             {
-                return "Removal failed";
+                return LocalRes.RemovalFailed;
             }
 
         }
@@ -46,11 +47,11 @@ namespace FileManager_MP.Services
             try
             {
                 File.Create(path);
-                return "File created successfully";
+                return LocalRes.FileCreatedSuccessfully;
             }
             catch (Exception ex)
             {
-                return "File not created";
+                return LocalRes.FileNotCreated;
             }
 
         }

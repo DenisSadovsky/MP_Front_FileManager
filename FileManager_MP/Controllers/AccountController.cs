@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using FileManager_MP.Models;
 using FileManager_MP.Services;
+using LocalRes = FileManager_MP.App_Resources.LocalResources;
 
 namespace FileManager_MP.Controllers
 {
@@ -65,7 +66,7 @@ namespace FileManager_MP.Controllers
             }
 
             con.Close();
-            acc.Message = "Invalid username or password";
+            acc.Message = LocalRes.InvalidUserNameOrPassword;
             return View(acc);
         }
 
@@ -123,7 +124,7 @@ namespace FileManager_MP.Controllers
             com.Connection = con;
             com.CommandText = "UPDATE Tbl_Accounts set IdRole="+ idRole + " where UserName='" + acc.Name+"'";
             var a = com.ExecuteNonQuery();
-            acc.Message = a == 0 ? "Something wrong with User Name" : "User Role changed";
+            acc.Message = a == 0 ? LocalRes.WrongUserName : LocalRes.UserNameChanged;
 
             return View(acc);
         }
