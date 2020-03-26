@@ -1,11 +1,11 @@
-﻿
+﻿@model FileManager_MP.Models.Account
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
 
 @*<div class="header">*@
-<h2 @*class="header"*@>Login Form</h2>
+<h2 class="txt-center">Login Form</h2>
 
 <form method="post">
     <div class="container">
@@ -14,13 +14,18 @@
 
         <label><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="Password" required>
-        
+
         <button type="submit">Login</button>
         <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
     </div>
-
+@if (Model != null)
+{
+    <div class="container">
+        <h2 class="txt-center-error">@Model.Message</h2>
+    </div>
+}
     <div class="container" style="background-color:#f1f1f1">
         <button type="button" class="cancelbtn">Cancel</button>
         <span class="psw">Forgot <a href="#">password?</a></span>
@@ -30,6 +35,5 @@
 
 <!-- scripts required  for particle effect -->
 @*<script src='~/js/particles.min.js'></script>
-<script src="~/js/index.js"></script>*@
+    <script src="~/js/index.js"></script>*@
 <!-- //scripts required for particle effect -->
-

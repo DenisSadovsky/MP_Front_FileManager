@@ -4,5 +4,10 @@
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
 
-<h2>Something wrong</h2>
+<h2 class="txt-center">Wrong login or password</h2>
+<form>
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" act onclick="location.href = '@Url.Action("Login", "Account")'">Cancel</button>
+</div>
+</form>
 

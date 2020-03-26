@@ -17,26 +17,44 @@ namespace FileManager_MP.Models
         public string Message { get; set; }
 
 
-        public void GetDirectoryFiles(string path)
+        public void GetDirectoryFiles()
         {
-            if (Directory.Exists(path))
+            if (!Directory.Exists(Path))
             {
-                Directories = Directory.GetDirectories(path);
-                
-                Files = Directory.GetFiles(path);
+                Message = "Wrong path or empty directory";
+            }
+            else
+            {
+                Directories = Directory.GetDirectories(Path);
+
+                Files = Directory.GetFiles(Path);
             }
         }
 
         public void DeleteFile()
         {
-            Directory.Delete(Path, true);
+            try
+            { 
+                if (!Directory.Exists(Path))
+                {
+                    File.Delete(Path);
+                }
+                Directory.Delete(Path, true);
+                Message = "Deleted successfuly";
+
+            }
+            catch (Exception e)
+            {
+                Message = "Removal failed";
+            }
+           
         }
 
-        public void CreateFile(string path)
+        public void CreateFile()
         {
             try
             {
-                FileStream fs = File.Create(path);
+                File.Create(Path);
                 Message = "File created successfully";
             }
             catch (Exception ex)
@@ -45,9 +63,23 @@ namespace FileManager_MP.Models
             }
 
         }
-        public void CreateDirectory(string path)
+        public void CreateDirectory()
         {
+            DirectoryInfo dirInfo = new DirectoryInfo(Path);
+            if (!dirInfo.Exists)
+            {
+                try
+                {
+                    dirInfo.Create();
+                    Message = "Directory created successfully";
+                }
+                catch
+                {
+                    Message = "Directory not created";
+                }
 
+                
+            }
         }
     }
 }

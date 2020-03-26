@@ -1,0 +1,32 @@
+﻿@model FileManager_MP.Models.Account
+
+@{
+    ViewBag.Title = "Change Role";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2 class="txt-center">Change Role</h2>
+
+<form method="post">
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="info@example.com" name="Name" required>
+
+        <label><b>Role</b></label>
+        <input type="text" placeholder="Enter Role(ex. admin or user)" name="Role" required>
+
+        <button type="submit">Change</button>
+    </div>
+    @if (Model != null)
+    {
+<div class="container">
+    <h2 class="txt-center-error">@Model.Message</h2>
+</div>
+        
+        
+    }
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn" act onclick="location.href = '@Url.Action("AdminActions", "Account")'">Cancel</button>
+    </div>
+</form>
+
