@@ -142,7 +142,7 @@
     <Content Include="Views\_LayoutPage1.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\AdminActions.cshtml" />
-    <Content Include="Views\Account\User.cshtml" />
+    <Content Include="Views\Account\UserView.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\ChangeRole.cshtml" />
     <None Include="Web.Debug.config">

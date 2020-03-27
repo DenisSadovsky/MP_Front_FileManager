@@ -37,6 +37,10 @@ namespace FileManager_MP.Controllers
         {
             return View();
         }
+        public ActionResult UserView()
+        {
+            return View();
+        }
 
         void ConnectionString()
         {
@@ -63,7 +67,7 @@ namespace FileManager_MP.Controllers
                 }
                 acc.Role = "User";
                 con.Close();
-                return View("User");
+                return View("UserView");
             }
 
             con.Close();
@@ -99,7 +103,7 @@ namespace FileManager_MP.Controllers
         }
 
         [HttpPost]
-        public ActionResult User(FileDirectory fileDirectory)
+        public ActionResult UserView(FileDirectory fileDirectory)
         {
             fileDirectory.Message = _fileDirectoryServiceProvider.GetDirectoryFiles(fileDirectory.Path, out var directories, out var files);
             if (fileDirectory.Message == null)
