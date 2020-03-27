@@ -1,26 +1,17 @@
 ﻿@model FileManager_MP.Models.FileDirectory
-
+@*@Html.React("LoginForm", Model);*@
 
 @{
     ViewBag.Title = "File Manager";
     Layout = "~/Views/_LayoutPage1.cshtml";
-    <link href="~/styles/StyleSheet.css" rel="stylesheet" />
+
 }
 
-<h2 class="txt-center">File Manager</h2>
-@*<div class="container">*@
+<div id="adminHeader"></div>
 <form method="post" action="/Account/AdminActions">
-    <div class="container">
-        <label><b>Path</b></label>
-        <input type="text" placeholder="C:\123" name="Path" required>
-        <button type="submit" value="Open" name="open" class="createButton">Open</button>
-        <button type="submit" value="CreateFile" name="createFile" class="createButton">Create File</button>
-        <button type="submit" value="CreateDirectory" name="createDirectory" class="createButton">Create Directory</button>
-        <button type="submit" value="Delete" name="delete" class="createButton">Delete</button>
-    </div>
+    <div id="adminForm"></div>
     <div class="listcontainer">
         <ul>
-
             @if (Model?.Files != null)
             {
                 foreach (var file in Model?.Files)
@@ -45,20 +36,13 @@
         </ul>
     </div>
     <button type="button" act onclick="location.href = '@Url.Action("ChangeRole", "Account")'">Change user rights</button>
-    @*<h2>
-                @if (Model != null)
-                {
-                    @Model.Message;
-
-                }
-        </h2>*@
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container" @*style="background-color:#f1f1f1"*@>
         <button type="button" class="cancelbtn" act onclick="location.href = '@Url.Action("Login", "Account")'">Cancel</button>
     </div>
 </form>
 
-@*</div>*@
 
+<script src='@Url.Content("~/Scripts/AdminActions.jsx")'></script>
 
 
 

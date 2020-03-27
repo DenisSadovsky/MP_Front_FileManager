@@ -3,16 +3,11 @@
 @{
     ViewBag.Title = "File Manager";
     Layout = "~/Views/_LayoutPage1.cshtml";
-    <link href="~/styles/StyleSheet.css" rel="stylesheet" />
 }
 
-<h2 class="txt-center">File Manager</h2>
+<div id="userHeader"></div>
 <form method="post" action="/Account/UserView">
-        <div class="container">
-            <label><b>Path</b></label>
-            <input type="text" placeholder="C:\123" name="Path" required>
-            <button type="submit" name="open" class="createButton">Open</button>
-        </div>
+    <div id="userForm"></div>
     <div class="listcontainer">
         <ul>
 
@@ -39,9 +34,12 @@
 
         </ul>
     </div>
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container" @*style="background-color:#f1f1f1"*@>
         <button type="button" class="cancelbtn" act onclick="location.href = '@Url.Action("Login", "Account")'">Cancel</button>
     </div>
-    </form>
+</form>
+
+
+<script src='@Url.Content("~/Scripts/UserView.jsx")'></script>
 
 
