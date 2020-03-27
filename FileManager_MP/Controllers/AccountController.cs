@@ -13,6 +13,7 @@ namespace FileManager_MP.Controllers
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         //SqlDataReader dr;
+        public AccountController() { }
 
         public AccountController(IAccountServiceProvider accountServiceProvider, IFileDirectoryServiceProvider fileDirectoryServiceProvider)
         {
@@ -24,7 +25,7 @@ namespace FileManager_MP.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            return View("Login");
         }
 
         public ActionResult AdminActions()
